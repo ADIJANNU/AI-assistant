@@ -14,6 +14,12 @@ next_year_age = age + 1
 years_to_60 = 60 - age
 goal_words = len(goal.split())
 
+#  User profile section
+
+print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+print("   User Profile ")
+print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
 print(f"Hello {firstname}!")
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -27,3 +33,30 @@ print(f"{'Next year age' : <10} : {next_year_age}")
 print(f"{'Years to 60': <10}  : {years_to_60}")
 print(f"{'Goal words': <10}: {goal_words} ")
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+# Chat History section
+
+print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+print("   Chat Session Started")
+print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+chat_history = []
+
+message1 = input("You: ").strip()
+chat_history.append(f"User: {message1}")
+
+message2 = input("You: ").strip()
+chat_history.append(f"User: {message2}")
+
+message3 = input("You: ").strip()
+chat_history.append(f"User: {message3}")
+
+print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+print("   Chat History")
+print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+for i, message in enumerate(chat_history):
+  print(f"{i+1}: {message}")
+
+print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+print(f"Total messages: {len(chat_history)}")
