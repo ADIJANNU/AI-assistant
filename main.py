@@ -42,21 +42,21 @@ print("━━━━━━━━━━━━━━━━━━━━━━━━�
 
 chat_history = []
 
-message1 = input("You: ").strip()
-chat_history.append(f"User: {message1}")
-
-message2 = input("You: ").strip()
-chat_history.append(f"User: {message2}")
-
-message3 = input("You: ").strip()
-chat_history.append(f"User: {message3}")
+msg1 = input("You: ").strip()
+chat_history.append({"role": "user", "content": msg1})
+msg2 = input("You: ").strip()
+chat_history.append({"role": "user", "content": msg2})
+msg3 = input("You: ").strip()
+chat_history.append({"role": "user", "content": msg3})
 
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
 print("   Chat History")
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
 
-for i, message in enumerate(chat_history):
-  print(f"{i+1}: {message}")
+for message in chat_history:
+  print(f"{message['role'].title()}: {message['content']}")
+
 
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
 print(f"Total messages: {len(chat_history)}")
+
