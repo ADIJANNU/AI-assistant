@@ -3,16 +3,62 @@ print("━━━━━━━━━━━━━━━━━━━━━━━━�
 print("   Welcome to AI Assistant")
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
 
+user = {}
 
 name = input("Enter your name: ").strip().title()
 age = int(input("Enter your age: ").strip())
 city = input("Enter your city name: ").strip().title()
 goal = input("What do you want to learn: ").strip().lower()
-
 firstname = name.split()[0]
 next_year_age = age + 1
-years_to_60 = 60 - age
-goal_words = len(goal.split())
+
+
+user = {
+  "name": name,
+  "age": age,
+  "city": city,
+  "goal": goal,
+  "firstname": name.split()[0],
+  "next_year": age + 1,
+  "days_lived": age * 365
+}
+
+chat_history = []
+
+while True:
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("   AI Assistant Menu")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("1. View Profile")
+    print("2. Start Chat")
+    print("3. View Chat History")
+    print("4. Chat Stats")
+    print("5. Exit")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+    choice = input("Pick 1-5: ").strip()
+
+    # Option 1 - View Profile
+    if choice == '1':
+           print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+           print("    Your Profile")
+           print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+           for key, value in user.items():
+               print(f"{key:<12}: {value}")
+           print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+    # Option 2 - Start Chat
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("   Chat Started")
+    print("   Type 'done' to stop")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━")
+    while True:
+        
+
+
+
+
+
 
 #  User profile section
 
@@ -40,7 +86,6 @@ print("━━━━━━━━━━━━━━━━━━━━━━━━�
 print("   Chat Session Started")
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
 
-chat_history = []
 
 msg1 = input("You: ").strip()
 chat_history.append({"role": "user", "content": msg1})
@@ -48,6 +93,8 @@ msg2 = input("You: ").strip()
 chat_history.append({"role": "user", "content": msg2})
 msg3 = input("You: ").strip()
 chat_history.append({"role": "user", "content": msg3})
+
+
 
 print("━━━━━━━━━━━━━━━━━━━━━━━━━")
 print("   Chat History")
