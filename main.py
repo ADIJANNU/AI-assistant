@@ -38,23 +38,7 @@ while True:
 
     choice = input("Pick 1-5: ").strip()
 
-    # Option 1 - View Profile
-    if choice == '1':
-           print("━━━━━━━━━━━━━━━━━━━━━━━━━")
-           print("    Your Profile")
-           print("━━━━━━━━━━━━━━━━━━━━━━━━━")
-           for key, value in user.items():
-               print(f"{key:<12}: {value}")
-           print("━━━━━━━━━━━━━━━━━━━━━━━━━")
-
-    # Option 2 - Start Chat
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━")
-    print("   Chat Started")
-    print("   Type 'done' to stop")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━")
-    while True:
-        
-
+ 
 
 
 
