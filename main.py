@@ -8,26 +8,31 @@ MAGENTA = '\033[95m'
 WHITE   = '\033[97m'
 RESET   = '\033[0m'
 
-print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-print(f"{YELLOW}   Welcome to AI Assistant{RESET}")
-print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+
 
 user = {}
 
-name = input(f"{GREEN}Enter your name: {RESET}").strip().title()
-age = int(input(f"{GREEN}Enter your age: {RESET}").strip())
-city = input(f"{GREEN}Enter your city name: {RESET}").strip().title()
-goal = input(f"{GREEN}What do you want to learn: {RESET}").strip().lower()
+def get_user_input(user):
+    print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+    print(f"{YELLOW}   Welcome to AI Assistant   {RESET}")
+    print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
 
-user = {
-    "name"      : name,
-    "age"       : age,
-    "city"      : city,
-    "goal"      : goal,
-    "firstname" : name.split()[0],
-    "next_year" : age + 1,
-    "days_lived": age * 365
-}
+
+    name = input(f"{GREEN}Enter your name: {RESET}").strip().title()
+    age = int(input(f"{GREEN}Enter your age: {RESET}").strip())
+    city = input(f"{GREEN}Enter your city name: {RESET}").strip().title()
+    goal = input(f"{GREEN}What do you want to learn: {RESET}").strip().lower()
+
+    return  {
+         "name"      : name,
+         "age"       : age,
+         "city"      : city,
+         "goal"      : goal,
+         "firstname" : name.split()[0],
+    }
+
+user_input = get_user_input(user)
+print(user_input)
 
 chat_history = []
 
