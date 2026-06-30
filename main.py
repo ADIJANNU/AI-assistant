@@ -9,10 +9,7 @@ WHITE   = '\033[97m'
 RESET   = '\033[0m'
 
 
-
-user = {}
-
-def get_user_input(user):
+def get_user_input():
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
     print(f"{YELLOW}   Welcome to AI Assistant   {RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
@@ -31,12 +28,7 @@ def get_user_input(user):
          "firstname" : name.split()[0],
     }
 
-user_input = get_user_input(user)
-print(user_input)
-
-chat_history = []
-
-while True:
+def show_menu():
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
     print(f"{YELLOW}   AI Assistant Menu{RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
@@ -46,11 +38,10 @@ while True:
     print(f"{WHITE}4. Chat Stats{RESET}")
     print(f"{WHITE}5. Exit{RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-
-    choice = input(f"{YELLOW}Pick 1-5: {RESET}").strip()
+    return input(f"{YELLOW}Pick 1-5: {RESET}").strip()
 
     # Option 1 - View Profile
-    if choice == '1':
+def view_profile(user):
         print(f"{GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
         print(f"{GREEN}   Your Profile{RESET}")
         print(f"{GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
@@ -59,7 +50,7 @@ while True:
         print(f"{GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
 
     # Option 2 - Start Chat
-    elif choice == '2':
+def start_chat(chat_history):
         print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
         print(f"{BLUE}   Chat Started{RESET}")
         print(f"{BLUE}   Type 'done' to stop{RESET}")
@@ -75,7 +66,7 @@ while True:
             print(f"{MAGENTA}Assistant: Got it! You said '{message}'{RESET}")
 
     # Option 3 - View Chat History
-    elif choice == '3':
+def view_history(chat_history):
         if len(chat_history) == 0:
             print(f"{RED}No messages yet!{RESET}")
         else:
@@ -87,7 +78,7 @@ while True:
             print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
 
     # Option 4 - Chat Stats
-    elif choice == '4':
+def show_stats(chat_history):
         if len(chat_history) == 0:
             print(f"{RED}No messages yet!{RESET}")
         else:
@@ -112,12 +103,28 @@ while True:
             print(f"{CYAN}Shortest msg  {RESET} : {WHITE}{shortest}{RESET}")
             print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
 
-    # Option 5 - Exit
-    elif choice == '5':
-        print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-        print(f"{YELLOW}   Goodbye {user['firstname']}! 👋{RESET}")
-        print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-        break
+def run_app():
+    user = get_user_input()
+    chat_history = []
 
-    else:
-        print(f"{RED}Invalid choice. Pick 1-5{RESET}")
+    while True:
+        choice = show_menu()
+
+        if choice == '1':
+            view_profile(user)
+        elif choice == '2':
+            start_chat(chat_history)
+        elif choice == '3':
+            view_history(chat_history)
+        elif choice == '4':
+            show_stats(chat_history)
+        elif choice == '5':
+            print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            print(f"{YELLOW}   Goodbye {user['firstname']}! 👋{RESET}")
+            print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            break
+        else:
+            print(f"{RED}Invalid choice. Pick 1-5{RESET}")
+
+
+run_app()
