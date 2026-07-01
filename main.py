@@ -1,3 +1,5 @@
+import time
+
 # Colors
 RED     = '\033[91m'
 GREEN   = '\033[92m'
@@ -7,6 +9,7 @@ CYAN    = '\033[96m'
 MAGENTA = '\033[95m'
 WHITE   = '\033[97m'
 RESET   = '\033[0m'
+
 
 
 def get_user_input():
@@ -104,6 +107,18 @@ def show_stats(chat_history):
             print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
 
 def run_app():
+
+    print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+    print(f"{YELLOW}   AI Assistant v1.0{RESET}")
+    print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+    print(f"{GREEN}  Initializing...{RESET}")
+    time.sleep(1)
+    print(f"{GREEN}  Loading Profile...{RESET}")
+    time.sleep(0.5)
+    print(f"{GREEN}  Ready! {RESET}")
+    time.sleep(0.5)
+
+
     user = get_user_input()
     chat_history = []
 
