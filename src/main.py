@@ -1,4 +1,5 @@
 import time
+from error_handling import get_valid_int, get_valid_name
 
 # Colors
 RED     = '\033[91m'
@@ -10,17 +11,15 @@ MAGENTA = '\033[95m'
 WHITE   = '\033[97m'
 RESET   = '\033[0m'
 
-
-
 def get_user_input():
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
     print(f"{YELLOW}   Welcome to AI Assistant   {RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
 
 
-    name = input(f"{GREEN}Enter your name: {RESET}").strip().title()
-    age = int(input(f"{GREEN}Enter your age: {RESET}").strip())
-    city = input(f"{GREEN}Enter your city name: {RESET}").strip().title()
+    name = get_valid_name(f"{GREEN}Enter your name: {RESET}")
+    age = get_valid_int(f"{GREEN}Enter your age: {RESET}")
+    city = input(f"{GREEN}Enter your city: {RESET}").strip().title()
     goal = input(f"{GREEN}What do you want to learn: {RESET}").strip().lower()
 
     return  {
