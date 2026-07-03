@@ -30,3 +30,9 @@ def load_profile():
   with open(PROFILE_FILE, "r") as f:
     return json.load(f)
   
+def reset_data():
+  if os.path.exists(CHAT_FILE):
+    os.remove(CHAT_FILE)
+  if os.path.exists(PROFILE_FILE):
+    os.remove(PROFILE_FILE)
+  print(f"{GREEN}✅ Data cleared! New user can login.{RESET}")
