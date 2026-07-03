@@ -1,6 +1,6 @@
 import time
 from error_handling import get_valid_int, get_valid_name
-from file_handler import save_chat, load_chat, save_profile, load_profile
+from file_handler import save_chat, load_chat, save_profile, load_profile, reset_data
 
 # Colors
 RED     = '\033[91m'
@@ -35,13 +35,14 @@ def show_menu():
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
     print(f"{YELLOW}   AI Assistant Menu{RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-    print(f"{WHITE}1. View Profile{RESET}")
-    print(f"{WHITE}2. Start Chat{RESET}")
-    print(f"{WHITE}3. View Chat History{RESET}")
-    print(f"{WHITE}4. Chat Stats{RESET}")
-    print(f"{WHITE}5. Exit{RESET}")
+    print(f"{MAGENTA}1. View Profile{RESET}")
+    print(f"{MAGENTA}2. Start Chat{RESET}")
+    print(f"{MAGENTA}3. View Chat History{RESET}")
+    print(f"{MAGENTA}4. Chat Stats{RESET}")
+    print(f"{MAGENTA}5. Reset / Switch User{RESET}")
+    print(f"{MAGENTA}6. Exit{RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-    return input(f"{YELLOW}Pick 1-5: {RESET}").strip()
+    return input(f"{YELLOW}Pick 1-6: {RESET}").strip()
 
     # Option 1 - View Profile
 def view_profile(user):
@@ -105,10 +106,10 @@ def show_stats(chat_history):
             print(f"{CYAN}Longest msg   {RESET} : {WHITE}{longest}{RESET}")
             print(f"{CYAN}Shortest msg  {RESET} : {WHITE}{shortest}{RESET}")
             print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            
 
 def run_app():
 
-    
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
     print(f"{YELLOW}   AI Assistant v1.0{RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
@@ -142,6 +143,12 @@ def run_app():
         elif choice == '4':
             show_stats(chat_history)
         elif choice == '5':
+             reset_data()
+             print(f"{YELLOW}Logged out!{RESET}")
+             run_app()
+             break
+        
+        elif choice == '6':
             print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
             save_chat(chat_history)
             print(f"{YELLOW}   Goodbye {user['firstname']}! 👋{RESET}")
