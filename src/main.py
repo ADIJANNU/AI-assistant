@@ -1,5 +1,6 @@
 import time
 from error_handling import get_valid_int, get_valid_name
+from file_handler import save_chat, load_chat, save_profile, load_profile
 
 # Colors
 RED     = '\033[91m'
@@ -107,6 +108,7 @@ def show_stats(chat_history):
 
 def run_app():
 
+    
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
     print(f"{YELLOW}   AI Assistant v1.0{RESET}")
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
@@ -118,8 +120,14 @@ def run_app():
     time.sleep(0.5)
 
 
-    user = get_user_input()
-    chat_history = []
+    user = load_profile()
+    if user is None:
+         user = get_user_input()
+         save_profile(user)
+    else:
+         print(f"{GREEN}✅ Welcome back {user['firstname']}!{RESET}")
+
+    chat_history = load_chat()
 
     while True:
         choice = show_menu()
@@ -128,12 +136,14 @@ def run_app():
             view_profile(user)
         elif choice == '2':
             start_chat(chat_history)
+            save_chat(chat_history)
         elif choice == '3':
             view_history(chat_history)
         elif choice == '4':
             show_stats(chat_history)
         elif choice == '5':
             print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            save_chat(chat_history)
             print(f"{YELLOW}   Goodbye {user['firstname']}! 👋{RESET}")
             print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
             break
