@@ -106,7 +106,14 @@ def show_stats(chat_history):
             print(f"{CYAN}Longest msg   {RESET} : {WHITE}{longest}{RESET}")
             print(f"{CYAN}Shortest msg  {RESET} : {WHITE}{shortest}{RESET}")
             print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-            
+
+class ChatSession:
+     def __init__(self, messages = None):
+          if messages is None:
+             self.messages = []
+          else:
+             self.messages = messages
+             
 
 def run_app():
 
