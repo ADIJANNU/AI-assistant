@@ -3,14 +3,69 @@ from error_handling import get_valid_int, get_valid_name
 from file_handler import save_chat, load_chat, save_profile, load_profile, reset_data
 
 # Colors
-RED     = '\033[91m'
-GREEN   = '\033[92m'
-YELLOW  = '\033[93m'
-BLUE    = '\033[94m'
-CYAN    = '\033[96m'
-MAGENTA = '\033[95m'
-WHITE   = '\033[97m'
-RESET   = '\033[0m'
+RED, GREEN, YELLOW, BLUE, CYAN, MAGENTA, WHITE, RESET = '\033[91m', '\033[92m', '\033[93m', '\033[94m', '\033[96m', '\033[95m', '\033[97m', '\033[0m'
+
+class ChatSession:
+     def __init__(self, messages = None):
+          if messages is None:
+             self.messages = []
+          else:
+             self.messages = messages
+    
+     def add_message(self, role, content):
+          self.messages.append({
+               "role": role,
+               "content": content
+          })
+
+     def start_chat(self):
+        print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+        print(f"{BLUE}   Chat Started{RESET}")
+        print(f"{BLUE}   Type 'done' to stop{RESET}")
+        print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+        while True:
+            message = input(f"{CYAN}You: {RESET}").strip()
+            if message.lower() == 'done':
+                break
+            self.add_message("user", message)
+            print(f"{MAGENTA}Assistant: Got it! You said '{message}'{RESET}")
+
+     def view_history(self):
+        if len(self.messages) == 0:
+            print(f"{RED}No messages yet!{RESET}")
+        else:
+            print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            print(f"{BLUE}   Chat History{RESET}")
+            print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            for i, message in enumerate(self.messages):
+                print(f"{CYAN}{i+1}.{RESET} {WHITE}{message['role'].title()}{RESET}: {message['content']}")
+            print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+
+     def show_stats(self):
+        if len(self.messages) == 0:
+            print(f"{RED}No messages yet!{RESET}")
+        else:
+            total_words = 0
+            longest = ''
+            shortest = self.messages[0]['content']
+
+            for message in self.messages:
+                content = message['content']
+                total_words += len(content.split())
+                if len(content) > len(longest):
+                    longest = content
+                if len(content) < len(shortest):
+                    shortest = content
+
+            print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            print(f"{MAGENTA}   Chat Stats{RESET}")
+            print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+            print(f"{CYAN}Total messages{RESET} : {WHITE}{len(self.messages)}{RESET}")
+            print(f"{CYAN}Total words   {RESET} : {WHITE}{total_words}{RESET}")
+            print(f"{CYAN}Longest msg   {RESET} : {WHITE}{longest}{RESET}")
+            print(f"{CYAN}Shortest msg  {RESET} : {WHITE}{shortest}{RESET}")
+            print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
+
 
 def get_user_input():
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
@@ -44,7 +99,6 @@ def show_menu():
     print(f"{CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
     return input(f"{YELLOW}Pick 1-6: {RESET}").strip()
 
-    # Option 1 - View Profile
 def view_profile(user):
         print(f"{GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
         print(f"{GREEN}   Your Profile{RESET}")
@@ -52,68 +106,6 @@ def view_profile(user):
         for key, value in user.items():
             print(f"{CYAN}{key:<12}{RESET}: {WHITE}{value}{RESET}")
         print(f"{GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-
-    # Option 2 - Start Chat
-def start_chat(chat_history):
-        print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-        print(f"{BLUE}   Chat Started{RESET}")
-        print(f"{BLUE}   Type 'done' to stop{RESET}")
-        print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-        while True:
-            message = input(f"{CYAN}You: {RESET}").strip()
-            if message.lower() == 'done':
-                break
-            chat_history.append({
-                "role"   : "user",
-                "content": message
-            })
-            print(f"{MAGENTA}Assistant: Got it! You said '{message}'{RESET}")
-
-    # Option 3 - View Chat History
-def view_history(chat_history):
-        if len(chat_history) == 0:
-            print(f"{RED}No messages yet!{RESET}")
-        else:
-            print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-            print(f"{BLUE}   Chat History{RESET}")
-            print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-            for i, message in enumerate(chat_history):
-                print(f"{CYAN}{i+1}.{RESET} {WHITE}{message['role'].title()}{RESET}: {message['content']}")
-            print(f"{BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-
-    # Option 4 - Chat Stats
-def show_stats(chat_history):
-        if len(chat_history) == 0:
-            print(f"{RED}No messages yet!{RESET}")
-        else:
-            total_words = 0
-            longest = ''
-            shortest = chat_history[0]['content']
-
-            for message in chat_history:
-                content = message['content']
-                total_words += len(content.split())
-                if len(content) > len(longest):
-                    longest = content
-                if len(content) < len(shortest):
-                    shortest = content
-
-            print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-            print(f"{MAGENTA}   Chat Stats{RESET}")
-            print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-            print(f"{CYAN}Total messages{RESET} : {WHITE}{len(chat_history)}{RESET}")
-            print(f"{CYAN}Total words   {RESET} : {WHITE}{total_words}{RESET}")
-            print(f"{CYAN}Longest msg   {RESET} : {WHITE}{longest}{RESET}")
-            print(f"{CYAN}Shortest msg  {RESET} : {WHITE}{shortest}{RESET}")
-            print(f"{MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-
-class ChatSession:
-     def __init__(self, messages = None):
-          if messages is None:
-             self.messages = []
-          else:
-             self.messages = messages
-             
 
 def run_app():
 
@@ -135,7 +127,7 @@ def run_app():
     else:
          print(f"{GREEN}✅ Welcome back {user['firstname']}!{RESET}")
 
-    chat_history = load_chat()
+    session = ChatSession(load_chat())
 
     while True:
         choice = show_menu()
@@ -143,12 +135,12 @@ def run_app():
         if choice == '1':
             view_profile(user)
         elif choice == '2':
-            start_chat(chat_history)
-            save_chat(chat_history)
+            session.start_chat()
+            save_chat(session.messages)
         elif choice == '3':
-            view_history(chat_history)
+            session.view_history()
         elif choice == '4':
-            show_stats(chat_history)
+            session.show_stats()
         elif choice == '5':
              reset_data()
              print(f"{YELLOW}Logged out!{RESET}")
@@ -157,7 +149,7 @@ def run_app():
         
         elif choice == '6':
             print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
-            save_chat(chat_history)
+            save_chat(session.messages)
             print(f"{YELLOW}   Goodbye {user['firstname']}! 👋{RESET}")
             print(f"{YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}")
             break
