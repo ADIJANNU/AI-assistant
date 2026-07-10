@@ -1,6 +1,7 @@
 import time
 from error_handling import get_valid_int, get_valid_name
 from file_handler import save_chat, load_chat, save_profile, load_profile, reset_data
+from ai_client import get_ai_response
 
 # Colors
 RED, GREEN, YELLOW, BLUE, CYAN, MAGENTA, WHITE, RESET = '\033[91m', '\033[92m', '\033[93m', '\033[94m', '\033[96m', '\033[95m', '\033[97m', '\033[0m'
@@ -28,7 +29,11 @@ class ChatSession:
             if message.lower() == 'done':
                 break
             self.add_message("user", message)
-            print(f"{MAGENTA}Assistant: Got it! You said '{message}'{RESET}")
+            
+            ai_reply = get_ai_response(message)
+            self.add_message("assistant", ai_reply)
+            print(f"{MAGENTA}Assistant: {ai_reply}{RESET}")
+
 
      def view_history(self):
         if len(self.messages) == 0:
