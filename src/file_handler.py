@@ -27,9 +27,13 @@ def save_profile(user):
 def load_profile():
   if not os.path.exists(PROFILE_FILE):
     return None
-  with open(PROFILE_FILE, "r") as f:
-    return json.load(f)
-  
+  try:
+    with open(PROFILE_FILE, "r") as f:
+      return json.load(f)
+  except json.JSONDecodeError:
+    print(f"{RED}⚠️ Profile file corrupted, starting fresh. {RESET}")
+    return None
+
 def reset_data():
   if os.path.exists(CHAT_FILE):
     os.remove(CHAT_FILE)
